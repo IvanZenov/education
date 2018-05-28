@@ -1,0 +1,605 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Product App
+host: localhost:10010
+basePath: /api/v1
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /user:  
+    x-swagger-router-controller: get_products
+    post:
+      tags:
+      - "user"
+      summary: "Get ratingto the mentor"
+      description: "Rating of the mentor"
+      operationId: "getRatingByName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: username
+        in: query
+        description: The name that needs to be fetched.
+        required: true
+        type: string
+      - name: Skills
+        in: query
+        description: Assessment of a mentor
+        type: string
+      - name: Learnability
+        in: query
+        description: Assessment of a mentor
+        type: string
+      - name: Enthusiasm
+        in: query
+        description: Assessment of a mentor
+        type: string
+      - name: Mentor Rate
+        in: query
+        description: Assessment of a mentor
+        type: string
+
+
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Users"
+            xml:
+              name: user
+        500:
+          description: An unexpected error occured.
+          schema:
+            $ref: "#/definitions/Error"
+
+  /user/{username}:
+    x-swagger-router-controller: get_products
+    get:
+      tags:
+      - "user"
+      summary: About user
+      description: Rating 
+      operationId: createUser
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: username
+        in: path
+        required: true
+        description: The name of the user
+        type: string
+      - name: name
+        in: query
+        description: The name of the user
+        type: string
+      - name: Courses
+        in: query
+        description: The name of courses
+        type: string
+      - name: Progress
+        in: query
+        description:  How much is completed
+        type: string
+      - name: Mentor name
+        in: query
+        description: How is a Mentor
+        type: string
+      - name: Skills
+        in: query
+        description: Assessment of a mentor
+        type: string
+      - name: Learnability
+        in: query
+        description: Assessment of a mentor
+        type: string
+      - name: Enthusiasm
+        in: query
+        description: Assessment of a mentor
+        type: string
+      - name: Mentor Rate
+        in: query
+        description: Assessment of a mentor
+        type: string  
+
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Users"
+        404:
+          description: User not found
+        500:
+          $ref: "#/responses/Standard500ErrorResponse"
+    put:
+      tags:
+      - "user"
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: username
+        in: path
+        description: The name that needs to be fetched.
+        required: true
+        type: string
+      - name: Skills
+        in: query
+        description: Assessment of a mentor
+        type: string
+      - name: Learnability
+        in: query
+        description: Assessment of a mentor
+        type: string
+      - name: Enthusiasm
+        in: query
+        description: Assessment of a mentor
+        type: string
+      - name: Mentor Rate
+        in: query
+        description: Assessment of a mentor
+        type: string
+      responses:
+        200:
+          description: A product
+          schema:
+            $ref: "#/definitions/Users"
+        404:
+          description: The produts does not exist
+        500:
+          $ref: "#/responses/Standard500ErrorResponse"
+  /mentors:
+    x-swagger-router-controller: get_products
+    get:
+      tags:
+      - "mentor"
+      summary: Find mentor by name
+      operationId: getMentors
+      description: "This can only be done by the logged in user."
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+        - name: mentorname
+          in: query
+          description: 'Mentor name '
+          required: true
+          type: string
+        - name: experience
+          in: query
+          description: 'An experience of a mentors'
+          required: true
+          type: string
+        - name: course
+          in: query
+          description: 'Mentor course '
+          required: true
+          type: string
+        - name: rating
+          in: query
+          description: 'Short list of rating,and common rating of Mentor '
+          required: true
+          type: string
+
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Mentors"
+            xml:
+              name: mentors
+        500:
+          description: An unexpected error occured.
+          schema:
+            $ref: "#/definitions/Error"
+  /mentors/{mentorname}:
+    x-swagger-router-controller: get_products
+    get:
+      tags:
+      - "mentor"
+      summary: Find mentor by name
+      operationId: getMentor
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "mentorname"
+        in: "path"
+        description: "The name that needs to be fetched. "
+        required: true
+        type: "string"
+      - name: surname
+        in: "query"
+        description: The surname of the mentor
+        type: string
+      - name: nickname
+        in: query
+        description: The nickname of the mentor
+        type: string
+      - name: Experience
+        in: query
+        description: The Mentor Experience
+        type: string
+      - name:  passed people
+        in: query
+        description: Value of passed people 
+        type: string
+      - name: value
+        in: query
+        description: Number of people mentoring the mentor 
+        type: string
+      - name: rating
+        in: query
+        description: The rating of the mentor
+        type: string
+      - name: place
+        in: query
+        description: Place mentor in the ranking
+        type: string
+
+      responses:
+        200:
+          description: A product
+          schema:
+            $ref: "#/definitions/Mentor"
+        404:
+          description: The produts does not exist
+        500:
+          $ref: "#/responses/Standard500ErrorResponse"
+    put:
+      tags:
+      - "mentor"
+      summary: Updated mentor
+      operationId: updateMentor
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+        - name: "mentorname"
+          in: "path"
+          description: "The name that needs to be fetched. "
+          required: true
+          type: "string"
+        - name: name
+          in: query
+          description: The name of the mentor
+          type: string
+        - name: surname
+          in: query
+          description: The surname of the mentor
+          type: string
+        - name: Experience
+          in: query
+          description: The Mentor Experience
+          type: string
+        - name:  passed people
+          in: query
+          description: Value of passed people 
+          type: string
+        - name: value
+          in: query
+          description: Number of people mentoring the mentor 
+          type: string
+        - name: rating
+          in: query
+          description: The rating of the mentor
+          type: string
+        - name: place
+          in: query
+          description: Place mentor in the ranking
+          type: string
+
+
+      responses:
+        200:
+          description: A product
+          schema:
+            $ref: "#/definitions/Mentor"
+        404:
+          description: The produts does not exist
+        500:
+          $ref: "#/responses/Standard500ErrorResponse"
+    post:
+      tags:
+      - "mentor"
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: upgradeMentor
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+        - name: "mentorname"
+          in: "path"
+          description: "The name that needs to be fetched. "
+          required: true
+          type: "string"
+        - name: name
+          in: query
+          description: The name of the mentor
+          type: string
+        - name: surname
+          in: query
+          description: The surname of the mentor
+          type: string
+        - name: Courses
+          in: query
+          description: Kind of courses
+          type: string
+        - name: experience
+          in: query
+          description: The experience of the mentor
+          type: string
+        - name: contact
+          in: query
+          description: The contact
+          type: string
+        - name: All people
+          in: query
+          description: People who have a mentor
+          type: string
+        - name: rating
+          in: query
+          description: The rating of mentor
+          type: string
+
+
+      responses:
+        200:
+          description: A product
+          schema:
+            $ref: "#/definitions/Mentor"
+        404:
+          description: The produts does not exist
+        500:
+          $ref: "#/responses/Standard500ErrorResponse"
+
+  /UserRate:
+    x-swagger-router-controller: get_products
+    post:
+      tags:
+      - "UserRate"
+      summary: UserRate
+      operationId: RateUser
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+        - name: Username
+          in: query
+          description: The new rate of the user
+          type: string
+        - name: Rate
+          in: query
+          description: The rate of the user
+          type: string
+
+      responses:
+        200:
+          description: Success
+          schema:
+            items:
+              $ref: "#/definitions/UserRate"
+            xml:
+              name: user
+        500:
+          description: An unexpected error occured.
+          schema:
+            $ref: "#/definitions/Error"
+    get:
+      tags:
+      - "UserRate"
+      summary: GetRate
+      operationId: getrate
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+        - name: username
+          in: query
+          description: The surname of the user
+          type: string
+        - name: Rate
+          in: query
+          description: The Rate of the user
+          type: string
+
+      responses:
+        200:
+          description: Success
+          schema:
+            items:
+              $ref: "#/definitions/UserRate"
+            xml:
+              name: user
+        500:
+          description: An unexpected error occured.
+          schema:
+            $ref: "#/definitions/Error"
+            
+  /MentorRate:
+    x-swagger-router-controller: get_products
+    post:
+      tags:
+      - "MentorRate"
+      summary: MentorRate
+      operationId: MentorUser
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+        - name: Mentorname
+          in: query
+          description: The new rate of the mentor
+          type: string
+        - name: Rate
+          in: query
+          description: The rate of the mentor
+          type: string
+
+      responses:
+        200:
+          description: Success
+          schema:
+            items:
+              $ref: "#/definitions/MentorRate"
+            xml:
+              name: user
+        500:
+          description: An unexpected error occured.
+          schema:
+            $ref: "#/definitions/Error"
+    get:
+      tags:
+      - "MentorRate"
+      summary: GetRate
+      operationId: getmentorrate
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+        - name: username
+          in: query
+          description: The surname of the mentor
+          type: string
+        - name: Rate
+          in: query
+          description: The Rate of the mentor
+          type: string
+
+      responses:
+        200:
+          description: Success
+          schema:
+            items:
+              $ref: "#/definitions/MentorRate"
+            xml:
+              name: user
+        500:
+          description: An unexpected error occured.
+          schema:
+            $ref: "#/definitions/Error"          
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+definitions:
+  Users:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of user
+      surname:
+        type: string
+        description: Surname of user
+      nickname:
+        type: string
+        description: Unique nickname of user
+      country:
+        type: string
+        description: Place of residence
+      email:
+        type: string
+        description: The email of the user
+      contact:
+        type: string
+        description: The contact of the user
+  Mentors:
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name of the mentor
+      surname:
+        type: string
+        description: The surname of the mentor
+      nickname:
+        type: string
+        description: The nickname of the mentor
+      courses:
+        type: string
+        description: Kind of business
+      rating:
+        type: string
+        description: The rating of the course
+  Mentor:
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name of the mentor
+      surname:
+        type: string
+        description: The surname of the mentor
+      image:
+        type: string
+        description: The image of the mentor
+      courese:
+        type: string
+        description: The coures of the mentor
+      experience:
+        type: string
+        description: experience
+      chat link:
+        type: string
+        description: link on chat
+      rating:
+        type: string
+        description: the rating
+        
+  MentorRate:
+    type: object
+    properties:
+      current rating:
+        type: string
+        description: all rating
+      learnability:
+        type: string
+        description: Assessment of a mentor
+      enthusiasm:
+        type: string
+        description: Assessment of a mentor
+      main rating:
+        type: string
+        description: Assessment of a mentor
+     
+     
+  UserRate:
+    type: object
+    properties:
+      current rating:
+        type: string
+        description: all rating
+      main rating:
+        type: string
+        description: common rating
+      skills:
+        type: string
+        description: rate of skills
+  Error:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+
+
+responses:
+  Standard500ErrorResponse:
+    description: An unexpected error occured
+    schema:
+      $ref: "#/definitions/Error"
